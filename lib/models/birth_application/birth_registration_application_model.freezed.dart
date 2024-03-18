@@ -28,7 +28,6 @@ mixin _$BirthRegistrationApplicationModel {
   String get hospitalName => throw _privateConstructorUsedError;
   String get placeOfBirth => throw _privateConstructorUsedError;
   String get tenantId => throw _privateConstructorUsedError;
-  int get age => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
   String? get applicationNumber => throw _privateConstructorUsedError;
   String? get babyLastName => throw _privateConstructorUsedError;
@@ -59,7 +58,6 @@ abstract class $BirthRegistrationApplicationModelCopyWith<$Res> {
       String hospitalName,
       String placeOfBirth,
       String tenantId,
-      int age,
       String? id,
       String? applicationNumber,
       String? babyLastName,
@@ -94,7 +92,6 @@ class _$BirthRegistrationApplicationModelCopyWithImpl<$Res,
     Object? hospitalName = null,
     Object? placeOfBirth = null,
     Object? tenantId = null,
-    Object? age = null,
     Object? id = freezed,
     Object? applicationNumber = freezed,
     Object? babyLastName = freezed,
@@ -131,10 +128,6 @@ class _$BirthRegistrationApplicationModelCopyWithImpl<$Res,
           ? _value.tenantId
           : tenantId // ignore: cast_nullable_to_non_nullable
               as String,
-      age: null == age
-          ? _value.age
-          : age // ignore: cast_nullable_to_non_nullable
-              as int,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -221,7 +214,6 @@ abstract class _$$BirthRegistrationApplicationModelImplCopyWith<$Res>
       String hospitalName,
       String placeOfBirth,
       String tenantId,
-      int age,
       String? id,
       String? applicationNumber,
       String? babyLastName,
@@ -259,7 +251,6 @@ class __$$BirthRegistrationApplicationModelImplCopyWithImpl<$Res>
     Object? hospitalName = null,
     Object? placeOfBirth = null,
     Object? tenantId = null,
-    Object? age = null,
     Object? id = freezed,
     Object? applicationNumber = freezed,
     Object? babyLastName = freezed,
@@ -296,10 +287,6 @@ class __$$BirthRegistrationApplicationModelImplCopyWithImpl<$Res>
           ? _value.tenantId
           : tenantId // ignore: cast_nullable_to_non_nullable
               as String,
-      age: null == age
-          ? _value.age
-          : age // ignore: cast_nullable_to_non_nullable
-              as int,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -340,7 +327,6 @@ class _$BirthRegistrationApplicationModelImpl
       required this.hospitalName,
       required this.placeOfBirth,
       required this.tenantId,
-      required this.age,
       this.id,
       this.applicationNumber,
       this.babyLastName,
@@ -367,8 +353,6 @@ class _$BirthRegistrationApplicationModelImpl
   @override
   final String tenantId;
   @override
-  final int age;
-  @override
   final String? id;
   @override
   final String? applicationNumber;
@@ -383,7 +367,7 @@ class _$BirthRegistrationApplicationModelImpl
 
   @override
   String toString() {
-    return 'BirthRegistrationApplicationModel(babyFirstName: $babyFirstName, doctorName: $doctorName, father: $father, mother: $mother, hospitalName: $hospitalName, placeOfBirth: $placeOfBirth, tenantId: $tenantId, age: $age, id: $id, applicationNumber: $applicationNumber, babyLastName: $babyLastName, timeOfBirth: $timeOfBirth, address: $address, workflow: $workflow)';
+    return 'BirthRegistrationApplicationModel(babyFirstName: $babyFirstName, doctorName: $doctorName, father: $father, mother: $mother, hospitalName: $hospitalName, placeOfBirth: $placeOfBirth, tenantId: $tenantId, id: $id, applicationNumber: $applicationNumber, babyLastName: $babyLastName, timeOfBirth: $timeOfBirth, address: $address, workflow: $workflow)';
   }
 
   @override
@@ -403,7 +387,6 @@ class _$BirthRegistrationApplicationModelImpl
                 other.placeOfBirth == placeOfBirth) &&
             (identical(other.tenantId, tenantId) ||
                 other.tenantId == tenantId) &&
-            (identical(other.age, age) || other.age == age) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.applicationNumber, applicationNumber) ||
                 other.applicationNumber == applicationNumber) &&
@@ -427,7 +410,6 @@ class _$BirthRegistrationApplicationModelImpl
       hospitalName,
       placeOfBirth,
       tenantId,
-      age,
       id,
       applicationNumber,
       babyLastName,
@@ -461,7 +443,6 @@ abstract class _BirthRegistrationApplicationModel
       required final String hospitalName,
       required final String placeOfBirth,
       required final String tenantId,
-      required final int age,
       final String? id,
       final String? applicationNumber,
       final String? babyLastName,
@@ -487,8 +468,6 @@ abstract class _BirthRegistrationApplicationModel
   String get placeOfBirth;
   @override
   String get tenantId;
-  @override
-  int get age;
   @override
   String? get id;
   @override

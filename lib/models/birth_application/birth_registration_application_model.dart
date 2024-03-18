@@ -17,7 +17,6 @@ class BirthRegistrationApplicationModel
     required String hospitalName,
     required String placeOfBirth,
     required String tenantId,
-    required int age,
     String? id,
     String? applicationNumber,
     String? babyLastName,
