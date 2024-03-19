@@ -43,6 +43,7 @@ dependencies:
   reactive_forms: ^14.3.0
   get: ^4.6.6
   flutter_riverpod: ^2.5.1
+  uuid: ^4.3.3
 
 dev_dependencies:
   flutter_test:

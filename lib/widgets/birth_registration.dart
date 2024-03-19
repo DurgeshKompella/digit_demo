@@ -1,5 +1,6 @@
 import 'package:digit_components/widgets/widgets.dart';
 import 'package:dummy_p/models/birth_application/birth_registration_application_model.dart';
+import 'package:dummy_p/pages/new_birth_registration.dart';
 import 'package:flutter/material.dart';
 import 'package:digit_components/digit_components.dart';
 
@@ -34,7 +35,7 @@ class _BirthRegistrationState extends State<BirthRegistration> {
     };
     Map<String, String> moreBabyDetails = {
       "Doctor Name": widget.birthRegistration.doctorName,
-      "Hospital Name": widget.birthRegistration.mother.userName,
+      "Hospital Name": widget.birthRegistration.hospitalName,
     };
     return DigitCard(
       margin: const EdgeInsets.all(10),
@@ -57,7 +58,11 @@ class _BirthRegistrationState extends State<BirthRegistration> {
                   minimumSize: MaterialStateProperty.all(Size(100,
                       Theme.of(context).textTheme.headlineMedium!.fontSize!)),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (ctx) => NewBirthRegistration(
+                          model: widget.birthRegistration)));
+                },
               )
             ],
           ),

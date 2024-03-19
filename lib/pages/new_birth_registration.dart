@@ -14,8 +14,11 @@ class NewBirthRegistration extends ConsumerWidget {
   final String placeOfBirthKey = 'placeOfBirth';
   final String fatherNameKey = 'fatherName';
   final String motherNameKey = 'motherName';
+  final String tenantIdKey = 'tenantId';
 
-  const NewBirthRegistration({super.key});
+  final BirthRegistrationApplicationModel? model;
+
+  const NewBirthRegistration({super.key, required this.model});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -108,6 +111,18 @@ class NewBirthRegistration extends ConsumerWidget {
                                       'Name should be maximum of 128 characters',
                                 },
                               ),
+                              DigitTextFormField(
+                                label: 'Tenant Id',
+                                formControlName: tenantIdKey,
+                                isRequired: true,
+                                validationMessages: {
+                                  'required': (_) => 'Name is required',
+                                  'minLength': (_) =>
+                                      'Name should be minimum of 2 characters',
+                                  'maxLength': (_) =>
+                                      'Name should be maximum of 128 characters',
+                                },
+                              ),
                             ],
                           ),
                         ),
@@ -152,7 +167,6 @@ class NewBirthRegistration extends ConsumerWidget {
                                 const SizedBox(
                                   height: 30,
                                 )
-                                // const MediaInsetsSpace(),
                               ],
                             ))
                       ],
@@ -164,7 +178,9 @@ class NewBirthRegistration extends ConsumerWidget {
                   right: 0,
                   left: 0,
                   child: DigitElevatedButton(
-                    child: const Text("Create Birth Registration"),
+                    child: Text(model == null
+                        ? "Create Birth Registration"
+                        : "Update Birth Registration"),
                     onPressed: () {
                       form.markAllAsTouched();
                       if (!form.valid) return;
@@ -181,31 +197,40 @@ class NewBirthRegistration extends ConsumerWidget {
                                 label: 'Confirm',
                                 action: (BuildContext context) {
                                   if (form.valid) {
-                                    ref.read(birthRegistrationApplicationsProvider.notifier).addNewBirthRegistrationApplication(
+                                    BirthRegistrationApplicationModel createdModel =
                                         BirthRegistrationApplicationModel(
-                                            babyFirstName: form.rawValue['firstName']
+                                            babyFirstName: form.rawValue[firstNameKey]
                                                 as String,
-                                            doctorName: form.rawValue['doctorName']
+                                            doctorName: form.rawValue[doctorNameKey]
                                                 as String,
                                             father: UserModal(
                                                 roles: [],
                                                 tenantId: "tenantId",
-                                                userName:
-                                                    form.rawValue['fatherName']
-                                                        as String),
+                                                userName: form.rawValue[fatherNameKey]
+                                                    as String),
                                             mother: UserModal(
                                                 roles: [],
                                                 tenantId: "tenantId",
-                                                userName:
-                                                    form.rawValue['motherName']
-                                                        as String),
+                                                userName: form.rawValue[motherNameKey]
+                                                    as String),
                                             hospitalName:
-                                                form.rawValue['hospitalName']
+                                                form.rawValue[hospitalNameKey]
                                                     as String,
                                             placeOfBirth:
-                                                form.rawValue['placeOfBirth']
+                                                form.rawValue[placeOfBirthKey]
                                                     as String,
-                                            tenantId: "tenantId"));
+                                            tenantId: form.rawValue[tenantIdKey]
+                                                as String,
+                                            babyLastName: form.rawValue[lastNameKey] != null
+                                                ? form.rawValue[lastNameKey] as String
+                                                : null,
+                                            id: model?.id);
+                                    ref
+                                        .read(
+                                            birthRegistrationApplicationsProvider
+                                                .notifier)
+                                        .createOrUpdateBirthRegistrationApplication(
+                                            createdModel);
 
                                     form.reset();
                                     Navigator.pop(context);
@@ -233,39 +258,82 @@ class NewBirthRegistration extends ConsumerWidget {
     );
   }
 
-  FormGroup buildForm() => fb.group(<String, Object>{
-        firstNameKey: FormControl<String>(value: '', validators: [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(128)
-        ]),
-        lastNameKey: FormControl<String>(
-            value: '',
-            validators: [Validators.minLength(2), Validators.maxLength(128)]),
-        doctorNameKey: FormControl<String>(value: '', validators: [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(128)
-        ]),
-        hospitalNameKey: FormControl<String>(value: '', validators: [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(128)
-        ]),
-        placeOfBirthKey: FormControl<String>(value: '', validators: [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(128)
-        ]),
-        fatherNameKey: FormControl<String>(value: '', validators: [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(128)
-        ]),
-        motherNameKey: FormControl<String>(value: '', validators: [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(128)
-        ]),
-      });
+  FormGroup buildForm() {
+    Map<String, dynamic> initialValues = {
+      firstNameKey: '',
+      lastNameKey: null,
+      fatherNameKey: '',
+      motherNameKey: '',
+      doctorNameKey: '',
+      hospitalNameKey: '',
+      placeOfBirthKey: '',
+      tenantIdKey: '',
+    };
+    if (model != null) {
+      initialValues[firstNameKey] = model!.babyFirstName;
+      initialValues[lastNameKey] = model!.babyLastName;
+      initialValues[fatherNameKey] = model!.father.userName;
+      initialValues[motherNameKey] = model!.mother.userName;
+      initialValues[doctorNameKey] = model!.doctorName;
+      initialValues[hospitalNameKey] = model!.hospitalName;
+      initialValues[placeOfBirthKey] = model!.placeOfBirth;
+      initialValues[tenantIdKey] = model!.tenantId;
+    }
+    return fb.group(<String, Object>{
+      firstNameKey: FormControl<String>(
+          value: initialValues[firstNameKey] as String,
+          validators: [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(128)
+          ]),
+      lastNameKey: FormControl<String>(
+          value: initialValues[lastNameKey] == null
+              ? null
+              : initialValues[lastNameKey] as String,
+          validators: [Validators.minLength(2), Validators.maxLength(128)]),
+      doctorNameKey: FormControl<String>(
+          value: initialValues[doctorNameKey] as String,
+          validators: [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(128)
+          ]),
+      hospitalNameKey: FormControl<String>(
+          value: initialValues[hospitalNameKey] as String,
+          validators: [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(128)
+          ]),
+      placeOfBirthKey: FormControl<String>(
+          value: initialValues[placeOfBirthKey] as String,
+          validators: [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(128)
+          ]),
+      fatherNameKey: FormControl<String>(
+          value: initialValues[fatherNameKey] as String,
+          validators: [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(128)
+          ]),
+      motherNameKey: FormControl<String>(
+          value: initialValues[motherNameKey] as String,
+          validators: [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(128)
+          ]),
+      tenantIdKey: FormControl<String>(
+          value: initialValues[tenantIdKey] as String,
+          validators: [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(128)
+          ]),
+    });
+  }
 }
