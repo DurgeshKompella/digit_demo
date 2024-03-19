@@ -57,11 +57,11 @@ class NewBirthRegistration extends ConsumerWidget {
                                 formControlName: firstNameKey,
                                 isRequired: true,
                                 validationMessages: {
-                                  'required': (_) => 'Name is required',
+                                  'required': (_) => 'Baby First Name is required',
                                   'minLength': (_) =>
-                                      'Name should be minimum of 2 characters',
+                                      'Baby Name should be minimum of 2 characters',
                                   'maxLength': (_) =>
-                                      'Name should be maximum of 128 characters',
+                                      'Baby Name should be maximum of 128 characters',
                                 },
                               ),
                               DigitTextFormField(
@@ -70,9 +70,9 @@ class NewBirthRegistration extends ConsumerWidget {
                                 isRequired: false,
                                 validationMessages: {
                                   'minLength': (_) =>
-                                      'Name should be minimum of 2 characters',
+                                      'Baby Name should be minimum of 2 characters',
                                   'maxLength': (_) =>
-                                      'Name should be maximum of 128 characters',
+                                      'Baby Name should be maximum of 128 characters',
                                 },
                               ),
                               DigitTextFormField(
@@ -80,11 +80,11 @@ class NewBirthRegistration extends ConsumerWidget {
                                 formControlName: doctorNameKey,
                                 isRequired: true,
                                 validationMessages: {
-                                  'required': (_) => 'Name is required',
+                                  'required': (_) => 'Doctor Name is required',
                                   'minLength': (_) =>
-                                      'Name should be minimum of 2 characters',
+                                      'Doctor Name should be minimum of 2 characters',
                                   'maxLength': (_) =>
-                                      'Name should be maximum of 128 characters',
+                                      'Doctor Name should be maximum of 128 characters',
                                 },
                               ),
                               DigitTextFormField(
@@ -92,11 +92,11 @@ class NewBirthRegistration extends ConsumerWidget {
                                 formControlName: hospitalNameKey,
                                 isRequired: true,
                                 validationMessages: {
-                                  'required': (_) => 'Name is required',
+                                  'required': (_) => 'Hospital Name is required',
                                   'minLength': (_) =>
-                                      'Name should be minimum of 2 characters',
+                                      'Hospital Name should be minimum of 2 characters',
                                   'maxLength': (_) =>
-                                      'Name should be maximum of 128 characters',
+                                      'Hospital Name should be maximum of 128 characters',
                                 },
                               ),
                               DigitTextFormField(
@@ -104,11 +104,11 @@ class NewBirthRegistration extends ConsumerWidget {
                                 formControlName: placeOfBirthKey,
                                 isRequired: true,
                                 validationMessages: {
-                                  'required': (_) => 'Name is required',
+                                  'required': (_) => 'Place of Birth is required',
                                   'minLength': (_) =>
-                                      'Name should be minimum of 2 characters',
+                                      'Place of Birth should be minimum of 2 characters',
                                   'maxLength': (_) =>
-                                      'Name should be maximum of 128 characters',
+                                      'Place of Birth should be maximum of 128 characters',
                                 },
                               ),
                               DigitTextFormField(
@@ -116,11 +116,11 @@ class NewBirthRegistration extends ConsumerWidget {
                                 formControlName: tenantIdKey,
                                 isRequired: true,
                                 validationMessages: {
-                                  'required': (_) => 'Name is required',
+                                  'required': (_) => 'Tenant Id is required',
                                   'minLength': (_) =>
-                                      'Name should be minimum of 2 characters',
+                                      'Tenant Id should be minimum of 2 characters',
                                   'maxLength': (_) =>
-                                      'Name should be maximum of 128 characters',
+                                      'Tenant Id should be maximum of 128 characters',
                                 },
                               ),
                             ],
@@ -146,11 +146,11 @@ class NewBirthRegistration extends ConsumerWidget {
                                   formControlName: fatherNameKey,
                                   isRequired: true,
                                   validationMessages: {
-                                    'required': (_) => 'Name is required',
+                                    'required': (_) => 'Father Name is required',
                                     'minLength': (_) =>
-                                        'Name should be minimum of 2 characters',
+                                        'Father Name should be minimum of 2 characters',
                                     'maxLength': (_) =>
-                                        'Name should be maximum of 128 characters',
+                                        'Father Name should be maximum of 128 characters',
                                   },
                                 ),
                                 DigitTextFormField(
@@ -158,10 +158,11 @@ class NewBirthRegistration extends ConsumerWidget {
                                   formControlName: motherNameKey,
                                   isRequired: true,
                                   validationMessages: {
+                                    'required': (_) => 'Mother Name is required',
                                     'minLength': (_) =>
-                                        'Name should be minimum of 2 characters',
+                                        'Mother Name should be minimum of 2 characters',
                                     'maxLength': (_) =>
-                                        'Name should be maximum of 128 characters',
+                                        'Mother Name should be maximum of 128 characters',
                                   },
                                 ),
                                 const SizedBox(

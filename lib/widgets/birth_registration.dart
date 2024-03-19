@@ -36,6 +36,7 @@ class _BirthRegistrationState extends State<BirthRegistration> {
     Map<String, String> moreBabyDetails = {
       "Doctor Name": widget.birthRegistration.doctorName,
       "Hospital Name": widget.birthRegistration.hospitalName,
+      "Tenant Id": widget.birthRegistration.tenantId
     };
     return DigitCard(
       margin: const EdgeInsets.all(10),

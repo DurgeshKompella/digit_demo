@@ -4,36 +4,16 @@ import 'package:flutter/material.dart';
 
 class ListBirthRegistrationApplications extends StatelessWidget {
   final List<BirthRegistrationApplicationModel> birthRegistrationApplications;
-  final bool search;
   const ListBirthRegistrationApplications(
-      {super.key,
-      required this.birthRegistrationApplications,
-      required this.search});
+      {super.key, required this.birthRegistrationApplications});
 
   @override
   Widget build(BuildContext context) {
-    if (!search) {
-      return ListView.builder(
-        itemCount: birthRegistrationApplications.length,
-        itemBuilder: (ctx, index) => BirthRegistration(
-            key: ValueKey(birthRegistrationApplications[index].id),
-            birthRegistration: birthRegistrationApplications[index]),
-      );
-    } else {
-      return Scaffold(
-          appBar: AppBar(
-            title: const Text("Birth Registrations"),
-          ),
-          body: Column(children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: birthRegistrationApplications.length,
-                itemBuilder: (ctx, index) => BirthRegistration(
-                    key: ValueKey(birthRegistrationApplications[index].id),
-                    birthRegistration: birthRegistrationApplications[index]),
-              ),
-            )
-          ]));
-    }
+    return ListView.builder(
+      itemCount: birthRegistrationApplications.length,
+      itemBuilder: (ctx, index) => BirthRegistration(
+          key: ValueKey(birthRegistrationApplications[index].id),
+          birthRegistration: birthRegistrationApplications[index]),
+    );
   }
 }

@@ -4,7 +4,6 @@ import 'package:dummy_p/models/providers/birth_registration_application_provider
 import 'package:dummy_p/models/user/user_model.dart';
 import 'package:dummy_p/pages/new_birth_registration.dart';
 import 'package:dummy_p/widgets/list_birth_registration_applications.dart';
-import 'package:dummy_p/widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -42,8 +41,18 @@ const dummyRegistrations = [
       id: "ab247a88-b389-4039-942e-0790e076bf05")
 ];
 
-class ListBirthRegistration extends ConsumerWidget {
+class ListBirthRegistration extends ConsumerStatefulWidget {
   const ListBirthRegistration({super.key});
+
+  @override
+  ConsumerState<ListBirthRegistration> createState() {
+    return _ListBirthRegistrationState();
+  }
+}
+
+class _ListBirthRegistrationState extends ConsumerState<ListBirthRegistration> {
+  String searchByTenant = "";
+  bool triggerSearch = false;
   void createNewBirthRegistration(BuildContext context) {
     Navigator.push(
         context,
@@ -52,30 +61,39 @@ class ListBirthRegistration extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final birthRegistrationApplications =
+  Widget build(BuildContext context) {
+    List<BirthRegistrationApplicationModel> birthRegistrationApplications =
         ref.watch(birthRegistrationApplicationsProvider);
+    if (searchByTenant.trim() != "") {
+      birthRegistrationApplications = birthRegistrationApplications
+          .where((element) => element.tenantId == searchByTenant)
+          .toList();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Birth Registrations"),
       ),
       body: Column(
         children: [
-          SearchWidget(onSearch: (String searchByTenant) {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (ctx) => ListBirthRegistrationApplications(
-                      birthRegistrationApplications:
-                          birthRegistrationApplications
-                              .where((element) =>
-                                  element.tenantId == searchByTenant)
-                              .toList(),
-                      search: true,
-                    )));
-          }),
+          DigitSearchBar(
+            hintText: "Tenant Id",
+            onChanged: (value) {
+              searchByTenant = value;
+            },
+            margin: const EdgeInsets.all(10),
+            icon: DigitIconButton(
+              icon: Icons.search,
+              onPressed: () {
+                setState(() {
+                  triggerSearch = !triggerSearch;
+                });
+              },
+            ),
+          ),
           Expanded(
             child: ListBirthRegistrationApplications(
               birthRegistrationApplications: birthRegistrationApplications,
-              search: false,
             ),
           ),
           Padding(
